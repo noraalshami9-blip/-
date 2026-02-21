@@ -1,0 +1,152 @@
+### 3. الكود الكامل للشاشة (انسخه كاملاً)
+`features/payments/payments_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class PaymentsScreen extends StatelessWidget {
+  final String wallet = '3a32d21613032b3cd3e45041b6b75fb8'; // محفظة أحمد الرسمية
+
+  Future<void> _copyWallet() async {
+    await Clipboard.setData(ClipboardData(text: wallet));
+  }
+
+  Future<void> _payWithShamCash(BuildContext context, double amount) async {
+    await _copyWallet();
+
+    final uri = Uri.parse('https://shamcash.com/transfer?to=$wallet&amount=$amount');
+    
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('✅ تم نسخ رقم المحفظة\nافتح شام كاش وامسح الـ QR أو الصق الرقم'),
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 5),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('الاشتراك في Saifana'),
+        centerTitle: true,
+        backgroundColor: Colors.green.shade800,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            const Icon(Icons.account_balance_wallet_outlined, size: 90, color: Colors.green),
+            const SizedBox(height: 16),
+            const Text(
+              'ادفع بـ شام كاش فقط',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            Text('كل المدفوعات مباشرة إلى محفظة أحمد', style: TextStyle(color: Colors.grey[600])),
+
+            const SizedBox(height: 40),
+
+            // === QR Code Card ===
+            Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    const Text('امسح الـ QR Code للدفع الفوري', 
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 20),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
+                      ),
+                      child: QrImageView(
+                        data: wallet,           // ← يحتوي على رقم محفظتك تلقائيًا
+                        version: QrVersions.auto,
+                        size: 240,
+                        gapless: false,
+                        backgroundColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('رقم المحفظة', style: TextStyle(fontSize: 16)),
+                    SelectableText(
+                      wallet,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        letterSpacing: 1.2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            // خيارات المبالغ
+            const Text('اختر المبلغ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildAmountButton(context, 5),
+                _buildAmountButton(context, 10),
+                _buildAmountButton(context, 25),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+
+            ElevatedButton.icon(
+              onPressed: () => _payWithShamCash(context, 10),
+              icon: const Icon(Icons.payment, size: 28),
+              label: const Text('ادفع الآن', style: TextStyle(fontSize: 20)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 18),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+            const Text(
+              'بعد الدفع أرسل لقطة الشاشة للتفعيل الفوري\n'
+              'الـ QR Code يعمل مباشرة مع تطبيق شام كاش',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey, height: 1.6),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAmountButton(BuildContext context, double amount) {
+    return ElevatedButton(
+      onPressed: () => _payWithShamCash(context, amount),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green.shade700,
+        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      child: Text('$amount \$', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+    );
+  }
+}
