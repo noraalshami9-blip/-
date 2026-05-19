@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP FRESH - بطاطا طبيعية طازجة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        
+        :root {
+            --primary: #e63939;
+            --dark: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), 
+                        url('https://source.unsplash.com/random/1920x1080/?potato') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img {
+            max-width: 420px;
+            filter: drop-shadow(0 10px 20px rgba(230, 57, 57, 0.5));
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26,26,26,0.95);
+            z-index: 1000;
+            padding: 12px 0;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 18px;
+            font-weight: 600;
+        }
+
+        section { padding: 100px 0; }
+        h2 { text-align: center; font-size: 2.8rem; margin-bottom: 60px; }
+
+        .card {
+            background: #1f1f1f;
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: 0.4s;
+        }
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(230, 57, 57, 0.25);
+        }
+        .card i { font-size: 3.8rem; color: var(--primary); margin-bottom: 20px; }
+
+        .footer {
+            background: #0a0a0a;
+            padding: 70px 0 40px;
+            text-align: center;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            width: 55px; height: 55px;
+            background: #222;
+            color: #fff;
+            font-size: 1.7rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: #25D366;
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.6);
+            z-index: 9999;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="#home">
+                <img src="assets/images/logo.png" alt="TOP FRESH" class="logo-img" style="height: 75px;">
+            </a>
+            <div class="nav-links">
+                <a href="#home">الرئيسية</a>
+                <a href="#services">خدماتنا</a>
+                <a href="#about">من نحن</a>
+                <a href="#contact">تواصل معنا</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div style="text-align: center; z-index: 2;">
+            <img src="assets/images/logo.png" alt="TOP FRESH" class="logo-img" style="max-width: 520px;">
+            <p style="font-size: 2rem; margin-top: 30px; color: #ddd;">بطاطا طبيعية • طازجة • مالحة</p>
+            <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" 
+                    style="margin-top: 40px; background: #e63939; color: white; padding: 16px 45px; font-size: 1.4rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold;">
+                اطلب الآن
+            </button>
+        </div>
+    </section>
+
+    <section id="services" style="background:#111;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <h2>خدماتنا</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+                <div class="card">
+                    <i class="fas fa-pepper-hot"></i>
+                    <h3>البطاطا المالحة الطبيعية</h3>
+                    <p>رقائق بطاطا طبيعية مالحة بجودة فاخرة بدون مواد حافظة.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>بطاطا مقطعة للمطاعم والفنادق</h3>
+                    <p>تقطيع وتوريد يومي بأعلى معايير الجودة والنظافة.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-industry"></i>
+                    <h3>بطاطا خام لمعامل الشيبس</h3>
+                    <p>توريد كميات كبيرة من البطاطا الخام عالية الجودة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="background:#1a1a1a;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center;">
+            <h2>لماذا TOP FRESH؟</h2>
+            <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto;">
+                شركة متخصصة في إنتاج وتوزيع البطاطا الطبيعية بكل أنواعها في حلب، سوريا.
+            </p>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <img src="assets/images/logo.png" alt="TOP FRESH" style="height: 90px; margin-bottom: 15px;">
+            <p style="font-size: 1.3rem; margin: 20px 0 30px;">الجودة الطبيعية في كل حبة</p>
+            
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+            </div>
+
+            <p style="margin: 40px 0 10px;">📍 حلب - الجمهورية العربية السورية</p>
+            <p>📞 0995 155 627 | ✉️ info@topfresh.sy</p>
+            
+            <p style="margin-top: 50px; opacity: 0.6;">&copy; 2026 TOP FRESH - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <!-- زر واتساب -->
+    <a href="https://wa.me/963995155627" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
