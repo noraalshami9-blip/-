@@ -1,0 +1,60 @@
+from moviepy.editor import *
+import numpy as np
+
+# إعدادات الفيديو
+width = 1280
+height = 720
+duration = 60  # 60 ثانية = دقيقة
+fps = 24
+
+# إنشاء خلفية ملونة متحركة (Gradient)
+def make_background(t):
+    # تدرج لوني متحرك
+    color1 = np.array([30, 30, 80]) / 255
+    color2 = np.array([100, 0, 150]) / 255
+    progress = t / duration
+    color = (1 - progress) * color1 + progress * color2
+    frame = np.full((height, width, 3), color, dtype=np.float32)
+    return frame
+
+background = VideoClip(make_background, duration=duration)
+
+# نص رئيسي متحرك
+txt_clip = TextClip(
+    "فيديو مولد بـ Python\nمدته دقيقة كاملة",
+    fontsize=70,
+    color='white',
+    font='Arial-Bold',
+    size=(width, None)
+).set_position('center').set_duration(duration)
+
+# إضافة تأثير حركة للنص
+txt_clip = txt_clip.crossfadein(2).crossfadeout(2)
+
+# نص فرعي
+subtitle = TextClip(
+    "تم التوليد باستخدام MoviePy",
+    fontsize=40,
+    color='yellow',
+    font='Arial'
+).set_position(('center', height-100)).set_duration(duration).crossfadein(1)
+
+# تجميع الفيديو
+final_video = CompositeVideoClip([background, txt_clip, subtitle])
+
+# إضافة موسيقى خلفية (اختياري)
+# audio = AudioFileClip("background_music.mp3").subclip(0, duration)
+# final_video = final_video.set_audio(audio)
+
+# حفظ الفيديو بجودة عالية
+final_video.write_videofile(
+    "video_1_minute.mp4",
+    fps=fps,
+    codec="libx264",
+    audio_codec="aac",
+    threads=8,
+    preset="medium",      # أو "slow" لجودة أعلى
+    bitrate="8000k"
+)
+
+print("✅ تم إنشاء الفيديو بنجاح! (مدة: 60 ثانية)")
